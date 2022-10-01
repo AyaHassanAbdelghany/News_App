@@ -4,10 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/item_selected"
     >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar"
+        android:background="@color/white"
         app:titleTextColor="@color/primary_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,12 +63,37 @@
 
     </com.google.android.material.tabs.TabLayout>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
+        app:cardCornerRadius="8dp"
+        android:elevation="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            app:queryHint="@string/search_news"
+            app:iconifiedByDefault="false"
+            android:elevation="20dp"
+            android:autofillHints="search"
+            android:focusable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </androidx.cardview.widget.CardView>
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tabLayout"
+        app:layout_constraintTop_toBottomOf="@id/card"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

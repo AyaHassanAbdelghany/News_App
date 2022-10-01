@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.SportsFragment">
+    tools:context=".ui.view.SportsFragment"
+    >
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_news"
@@ -12,7 +15,8 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/news_item"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_marginBottom="5dp"
+        android:paddingBottom="10dp"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
@@ -20,7 +24,8 @@
 
     <ProgressBar
         android:id="@+id/progress"
-        android:visibility="invisible"
+        android:indeterminateTint="@color/primary_color"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

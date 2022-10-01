@@ -24,14 +24,14 @@
             android:title="@string/menu_sports" />
 
         <item
-            android:id="@+id/nav_health"
-            android:icon="@drawable/health"
-            android:title="@string/menu_health" />
-
-        <item
             android:id="@+id/nav_entertainment"
             android:icon="@drawable/entertainment"
             android:title="@string/menu_entertainment" />
+
+        <item
+            android:id="@+id/nav_health"
+            android:icon="@drawable/health"
+            android:title="@string/menu_health" />
 
         <item
             android:id="@+id/nav_settings"

@@ -1,8 +1,6 @@
 package com.example.news_app.ui.adapter
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,7 +11,7 @@ import com.example.news_app.R
 import com.example.news_app.databinding.NewsItemBinding
 import com.example.news_app.pojo.Articles
 
-class NewsAdapter(private val context: Context): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter( private val context: Context,private val listner : OnClickListner): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     private var newsList: List<Articles> = listOf()
 
@@ -27,6 +25,7 @@ class NewsAdapter(private val context: Context): RecyclerView.Adapter<NewsAdapte
         var currentItem = newsList[position]
 
         holder.binding.apply {
+
             title.text = currentItem.title
             name.text = currentItem.source.name
             if(currentItem.description !=null &&  currentItem.description.length > 85){
@@ -38,13 +37,22 @@ class NewsAdapter(private val context: Context): RecyclerView.Adapter<NewsAdapte
             author.text = currentItem.author
             date.text = currentItem.publishedAt.slice(IntRange(0,9))
 
-            holder.binding.cardView.setOnClickListener {
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(currentItem.url))
-                context.startActivity(browserIntent)
+            holder.binding.cardView.setOnClickListener{
+                listner.onClickItem(currentItem)
             }
+
             holder.binding.imageShare.setOnClickListener {
-                shareArticle(currentItem)
+                listner.onClickItem(currentItem)
+                //shareArticle(currentItem)
             }
+
+//            holder.binding.cardView.setOnClickListener {
+//                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(currentItem.url))
+//                context.startActivity(browserIntent)
+//            }
+//            holder.binding.imageShare.setOnClickListener {
+//                shareArticle(currentItem)
+//            }
 
         }
 
@@ -66,11 +74,11 @@ class NewsAdapter(private val context: Context): RecyclerView.Adapter<NewsAdapte
 
     class ViewHolder(val binding: NewsItemBinding): RecyclerView.ViewHolder(binding.root)
 
-    private fun shareArticle(article: Articles){
-        val sharingIntent = Intent(Intent.ACTION_SEND)
-        sharingIntent.setType("text/plain")
-        sharingIntent.putExtra(Intent.EXTRA_TEXT, "${article.title} : ${article.url}")
-        context.startActivity(Intent.createChooser(sharingIntent, "Share Article"))
-    }
+//    private fun shareArticle(article: Articles){
+//        val sharingIntent = Intent(Intent.ACTION_SEND)
+//        sharingIntent.setType("text/plain")
+//        sharingIntent.putExtra(Intent.EXTRA_TEXT, "${article.title} : ${article.url}")
+//        context.startActivity(Intent.createChooser(sharingIntent, "Share Article"))
+//    }
 
 }

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -78,29 +79,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        binding.contentMain.viewPager.apply {
+        Log.e("position", tabLayout.getTabAt(0)?.position.toString())
             when (item.itemId) {
-                tabLayout.getTabAt(0)?.position-> {
+                R.id.nav_home->{
                     binding.contentMain.viewPager.currentItem = 0
                 }
-                tabLayout.getTabAt(1)?.position-> {
+                R.id.nav_business ->{
                     binding.contentMain.viewPager.currentItem = 1
                 }
 
-                tabLayout.getTabAt(2)?.position-> {
+                R.id.nav_science -> {
                     binding.contentMain.viewPager.currentItem = 2
                 }
-                tabLayout.getTabAt(3)?.position->{
+                R.id.nav_sports ->{
                     binding.contentMain.viewPager.currentItem = 3
                 }
-                tabLayout.getTabAt(4)?.position-> {
+                R.id.nav_entertainment ->{
                     binding.contentMain.viewPager.currentItem = 4
                 }
-                tabLayout.getTabAt(5)?.position->{
+                R.id.nav_health ->{
                     binding.contentMain.viewPager.currentItem = 5
 
                 }
-            }
         }
         if(item.itemId == R.id.nav_settings){
             startActivity(Intent(this, SettingsActivity::class.java))
