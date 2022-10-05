@@ -16,4 +16,11 @@
     </style>
 
     <style name="Theme.News_app.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.News_app.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.News_app.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 </resources>
