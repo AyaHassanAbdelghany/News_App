@@ -3,6 +3,7 @@ package com.example.news_app
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -26,6 +27,7 @@ import androidx.preference.PreferenceManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.news_app.databinding.ActivityMainBinding
 import com.example.news_app.model.repository.NewsRepo
+import com.example.news_app.network.MyConnectivityManager
 import com.example.news_app.network.NewsClient
 import com.example.news_app.ui.adapter.PagerAdapter
 import com.example.news_app.ui.settings.view.SettingsActivity
@@ -115,6 +117,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
           }
 
       })
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
