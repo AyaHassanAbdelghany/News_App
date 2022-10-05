@@ -1,17 +1,21 @@
 package com.example.news_app.ui.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.news_app.R
 import com.example.news_app.databinding.NewsItemBinding
 import com.example.news_app.pojo.Articles
 
-class NewsAdapter( private val context: Context,private val listner : OnClickListner): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+
+class NewsAdapter( private val context: Context): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     private var newsList: List<Articles> = listOf()
 
@@ -28,8 +32,8 @@ class NewsAdapter( private val context: Context,private val listner : OnClickLis
 
             title.text = currentItem.title
             name.text = currentItem.source.name
-            if(currentItem.description !=null &&  currentItem.description.length > 85){
-                description.text = "${currentItem.description.slice(IntRange(0,85))}...."
+            if(currentItem.description !=null &&  currentItem.description.length > 70){
+                description.text = "${currentItem.description.slice(IntRange(0,70))}...."
             }else{
                 description.text = currentItem.description
 
@@ -38,21 +42,18 @@ class NewsAdapter( private val context: Context,private val listner : OnClickLis
             date.text = currentItem.publishedAt.slice(IntRange(0,9))
 
             holder.binding.cardView.setOnClickListener{
-                listner.onClickItem(currentItem)
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(currentItem.url))
+                context.startActivity(browserIntent)
+
             }
 
             holder.binding.imageShare.setOnClickListener {
-                listner.onClickItem(currentItem)
-                //shareArticle(currentItem)
+                val sendIntent = Intent()
+                sendIntent.action = Intent.ACTION_SEND
+                sendIntent.putExtra(Intent.EXTRA_TEXT,"${currentItem.title}: ${currentItem.url}")
+                sendIntent.type = "text/plain"
+                context.startActivity(sendIntent)
             }
-
-//            holder.binding.cardView.setOnClickListener {
-//                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(currentItem.url))
-//                context.startActivity(browserIntent)
-//            }
-//            holder.binding.imageShare.setOnClickListener {
-//                shareArticle(currentItem)
-//            }
 
         }
 

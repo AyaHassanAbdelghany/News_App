@@ -15,4 +15,12 @@ interface NewsService {
          @Query("apiKey") apiKey : String ="a1c2f37b0a744dcf9026ae1e1bcee545"
         ): NewsResponse
 
+
+    @GET(Keys.EVERYTHING)
+    suspend fun getNewsSearch(
+        @Query("q") q:String,
+        @Query("sortBy") sortBy:String = "publishedAt",
+        @Query("apiKey") apiKey : String ="a1c2f37b0a744dcf9026ae1e1bcee545"
+    ): NewsResponse
+
 }

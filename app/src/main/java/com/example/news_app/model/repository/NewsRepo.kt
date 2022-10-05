@@ -6,7 +6,6 @@ import com.example.news_app.pojo.NewsResponse
 class NewsRepo  private  constructor(private  val remoteSource: RemoteSource): INewsRepo {
 
     companion object{
-
         private val newsRepo:NewsRepo? = null
 
         fun getInstance(remoteSource: RemoteSource): NewsRepo {
@@ -16,5 +15,9 @@ class NewsRepo  private  constructor(private  val remoteSource: RemoteSource): I
 
     override suspend fun getNews(category: String, country: String): NewsResponse {
         return remoteSource.getNews(category,country)
+    }
+
+    override suspend fun getNewsSearch(q: String, sortBy: String): NewsResponse {
+        return  remoteSource.getNewsSearch(q,sortBy)
     }
 }

@@ -1,27 +1,29 @@
 package com.example.news_app.ui.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import com.example.news_app.databinding.FragmentEntertainmentBinding
-import com.example.news_app.databinding.FragmentHealthBinding
 import com.example.news_app.model.repository.NewsRepo
 import com.example.news_app.network.NewsClient
 import com.example.news_app.pojo.Articles
 import com.example.news_app.ui.adapter.NewsAdapter
-import com.example.news_app.ui.adapter.OnClickListner
 import com.example.news_app.ui.viewmodel.NewsViewModel
 import com.example.news_app.ui.viewmodel.NewsViewModelFactory
 
 
-class EntertainmentFragment() : Fragment(),OnClickListner {
+class EntertainmentFragment() : Fragment(){
 
     private var _binding: FragmentEntertainmentBinding? = null
     private val binding get() = _binding!!
     private var catogeryType: String = ""
+    private var isSearch : Boolean = false
     private val newsVMFactory by lazy {
         NewsViewModelFactory(NewsRepo.getInstance(NewsClient.getInstance()))
     }
@@ -29,11 +31,15 @@ class EntertainmentFragment() : Fragment(),OnClickListner {
         ViewModelProvider(this,newsVMFactory)[NewsViewModel::class.java]
     }
     private val  newsAdapter by lazy {
-        NewsAdapter(requireContext(),this)
+        NewsAdapter(requireContext())
     }
 
-    constructor(catogeryType: String) : this() {
+    private val prefrence by lazy{
+        PreferenceManager.getDefaultSharedPreferences(requireContext())
+    }
+    constructor(catogeryType: String,isSearch : Boolean) : this() {
         this.catogeryType = catogeryType
+        this.isSearch = isSearch
     }
 
 
@@ -48,14 +54,16 @@ class EntertainmentFragment() : Fragment(),OnClickListner {
         return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        newsVM.getNews(catogeryType,"us")
-    }
-
     override fun onResume() {
         super.onResume()
+        if(!isSearch){
+            newsVM.getNews(catogeryType,prefrence.getString("country","us")!!)
+        }
+        else{
+            newsVM.getNewsSearch(NewsViewModel.textSearch,prefrence.getString("search","publishedAt")!!)
+        }
         observeNews()
+
     }
     private fun observeNews(){
         newsVM.newsList.removeObservers(this)
@@ -69,13 +77,5 @@ class EntertainmentFragment() : Fragment(),OnClickListner {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onClickItem(articles: Articles) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickShare(articles: Articles) {
-        TODO("Not yet implemented")
     }
 }

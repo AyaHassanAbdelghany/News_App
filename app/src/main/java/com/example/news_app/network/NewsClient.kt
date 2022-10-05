@@ -15,8 +15,11 @@ class NewsClient private constructor() : RemoteSource{
         }
     }
     override suspend fun getNews(category: String, country: String): NewsResponse {
-        Log.e("response", newsService.getNews(category,country).articles[0].author.toString())
        return  newsService.getNews(category,country)
+    }
+
+    override suspend fun getNewsSearch(q: String, sortBy: String): NewsResponse {
+        return  newsService.getNewsSearch(q,sortBy)
     }
 
 }

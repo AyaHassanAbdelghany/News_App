@@ -4,6 +4,7 @@ class Keys {
 
     companion object {
         const val BASE_URL = "https://newsapi.org/v2/"
+        const val  EVERYTHING = "everything"
         const val  TOP_HEADLINES = "top-headlines"
         const val  GENERAL = "general"
         const val  SCIENCE = "science"
